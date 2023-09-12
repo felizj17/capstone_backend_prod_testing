@@ -59,7 +59,7 @@ auth.post('/login', async (req, res) => {
   const {email, password, persist} = req.body
   try {
     const EXISTING_ACCOUNT = await findAccount(email.toLowerCase())
-    
+    console.log(EXISTING_ACCOUNT)
     if (EXISTING_ACCOUNT.length === 0) {
       res.status(405).json({error: ' Email not found, register now'})
     } else {
@@ -80,21 +80,23 @@ auth.post('/login', async (req, res) => {
             const TIME = 60000
             res
               .cookie('token', token, {
-                origin: process.env.ORIGIN,
+                // origin: process.env.ORIGIN,
                 expires: persist ? new Date().time + TIME : undefined,
                 httpOnly: true,
                 secure:true,
-                sameSite:'none'
+                domain:'https://frabjous-lokum-c2fceb.netlify.app'
+                // sameSite:'none'
               })
               .cookie('checkToken', true, {
                 origin: process.env.ORIGIN,
                 expires: persist ? new Date().time + TIME : undefined,
                 secure:true,
-                sameSite:'none'
+                // sameSite:'none'
               })
               .status(200)
               .json({message: 'Welcome Back!', user: USER[0]})
           } else if (!result) {
+            console.log(result, password, EXISTING_ACCOUNT[0].password)
             res.status(400).json({error: 'Email or password do not match.'})
           }
         }
