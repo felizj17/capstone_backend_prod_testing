@@ -84,13 +84,14 @@ auth.post('/login', async (req, res) => {
                 expires: persist ? new Date().time + TIME : undefined,
                 httpOnly: true,
                 secure:true,
-                // domain:'https://frabjous-lokum-c2fceb.netlify.app',
+                domain:'https://frabjous-lokum-c2fceb.netlify.app',
                 sameSite:'None'
               })
               .cookie('checkToken', true, {
                 origin: process.env.ORIGIN,
                 expires: persist ? new Date().time + TIME : undefined,
                 secure:true,
+                domain:'https://frabjous-lokum-c2fceb.netlify.app',
                 sameSite:'None'
               })
               .status(200)
