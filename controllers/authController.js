@@ -80,14 +80,14 @@ auth.post('/login', async (req, res) => {
             const TIME = 60000
             res
               .cookie('token', token, {
-                // origin: process.env.ORIGIN,
+                origin: process.env.ORIGIN,
                 expires: persist ? new Date().time + TIME : undefined,
                 httpOnly: true,
                 secure:true,
                 sameSite:'none'
               })
               .cookie('checkToken', true, {
-                // origin: process.env.ORIGIN,
+                origin: process.env.ORIGIN,
                 expires: persist ? new Date().time + TIME : undefined,
                 secure:true,
                 sameSite:'none'

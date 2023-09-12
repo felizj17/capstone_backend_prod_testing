@@ -3,7 +3,6 @@ const cors = require('cors')
 const jsonParser = express.json()
 const app = express()
 const authController = require('./controllers/authController')
-
 const toolsController = require("./controllers/toolsController")
 const postsController = require('./controllers/postsController')
 const fileUpload = require('express-fileupload')
@@ -13,6 +12,7 @@ app.use(
     credentials: true,
   })
 )
+app.set("trust proxy",1)
 
 app.use(jsonParser)
 app.use(fileUpload())
