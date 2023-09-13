@@ -124,10 +124,10 @@ auth.post('/logout', (req, res) => {
 })
 
 auth.post('/token', (req, res) => {
-  const {cookie} = req.headers
+  const {cookie} = req.body
   const TIME = 60000
   if (cookie === undefined) return
-  const token = cookie.split('token=')[1].split(';')[0]
+  const token = cookie
   jwt.verify(token, process.env.SECRET_KEY, async (error, account) => {
     if (account && !error) {
       const USER = await getAccountInfo(account.email)
