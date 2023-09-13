@@ -38,18 +38,18 @@ auth.post('/signup', async (req, res) => {
           process.env.SECRET_KEY
         )
         res
-          .cookie('token', TOKEN, {
-            origin: process.env.ORIGIN,
-            httpOnly: true,
-            secure: true,
-          })
-          .cookie('checkToken', true, {
-            origin: process.env.ORIGIN,
-            secure: true,
+          // .cookie('token', TOKEN, {
+          //   origin: process.env.ORIGIN,
+          //   httpOnly: true,
+          //   secure: true,
+          // })
+          // .cookie('checkToken', true, {
+          //   origin: process.env.ORIGIN,
+          //   secure: true,
 
-          })
+          // })
           .status(200)
-          .json({message: 'Account creation Success', user:USER[0]})
+          .json({message: 'Account creation Success', user:USER[0], token:TOKEN})
       }
     })
   }
@@ -79,23 +79,23 @@ auth.post('/login', async (req, res) => {
             )
             const TIME = 60000
             res
-              .cookie('token', token, {
-                // origin: process.env.ORIGIN,
-                expires: persist ? new Date().time + TIME : undefined,
-                httpOnly: true,
-                secure:true,
-                domain:'https://frabjous-lokum-c2fceb.netlify.app',
-                sameSite:'None'
-              })
-              .cookie('checkToken', true, {
-                origin: process.env.ORIGIN,
-                expires: persist ? new Date().time + TIME : undefined,
-                secure:true,
-                domain:'https://frabjous-lokum-c2fceb.netlify.app',
-                sameSite:'None'
-              })
+              // .cookie('token', token, {
+              //   // origin: process.env.ORIGIN,
+              //   expires: persist ? new Date().time + TIME : undefined,
+              //   httpOnly: true,
+              //   secure:true,
+              //   domain:'https://frabjous-lokum-c2fceb.netlify.app',
+              //   sameSite:'None'
+              // })
+              // .cookie('checkToken', true, {
+              //   origin: process.env.ORIGIN,
+              //   expires: persist ? new Date().time + TIME : undefined,
+              //   secure:true,
+              //   domain:'https://frabjous-lokum-c2fceb.netlify.app',
+              //   sameSite:'None'
+              // })
               .status(200)
-              .json({message: 'Welcome Back!', user: USER[0]})
+              .json({message: 'Welcome Back!', user: USER[0], token:token})
           } else if (!result) {
             console.log(result, password, EXISTING_ACCOUNT[0].password)
             res.status(400).json({error: 'Email or password do not match.'})
@@ -132,17 +132,17 @@ auth.post('/token', (req, res) => {
     if (account && !error) {
       const USER = await getAccountInfo(account.email)
       res
-        .cookie('token', token, {
-          origin: process.env.ORIGIN,
-          expires: new Date().time + TIME,
-          httpOnly: true,
-          secure:true
-        })
-        .cookie('checkToken', true, {
-          origin: process.env.ORIGIN,
-          expires: new Date().time + TIME,
-          secure:true
-        })
+        // .cookie('token', token, {
+        //   origin: process.env.ORIGIN,
+        //   expires: new Date().time + TIME,
+        //   httpOnly: true,
+        //   secure:true
+        // })
+        // .cookie('checkToken', true, {
+        //   origin: process.env.ORIGIN,
+        //   expires: new Date().time + TIME,
+        //   secure:true
+        // })
         .status(200)
         .json({message: `Welcome back ${USER[0].username}`, user: USER[0]})
     }
